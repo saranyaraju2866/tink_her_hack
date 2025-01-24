@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Herhaven Hub - Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 300px;
+            text-align: center;
+        }
+        .login-container h2 {
+            color: #7e57c2;
+            margin-bottom: 20px;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #7e57c2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-container .signup-link {
+            margin-top: 15px;
+            color: #7e57c2;
+            text-decoration: none;
+        }
+        .social-login {
+            margin-top: 15px;
+        }
+        .social-login button {
+            background-color: #4285f4;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Herhaven Hub Login</h2>
+        <form id="login-form">
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div class="social-login">
+            <p>Or login with:</p>
+            <button>Google</button>
+            <button>LinkedIn</button>
+        </div>
+        <a href="register.html" class="signup-link">Already have an account? Register</a>
+    </div>
+</body>
+</html>

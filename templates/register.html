@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrepreneur Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-container {
+            width: 70%;
+            background: #ffffff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h2 {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-section {
+            width: 100%;
+        }
+
+        .form-section h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #333;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="file"],
+        input[type="url"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+        }
+
+        input[type="file"] {
+            padding: 6px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .image-container {
+            display: none;
+        }
+
+        .file-label {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .file-input-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-input-container input[type="file"] {
+            padding: 6px;
+            font-size: 14px;
+        }
+
+        .file-input-container .file-name {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-container">
+            <h2>Entrepreneur Registration</h2>
+
+            <!-- Basic Information Form -->
+            <div class="form-section" id="basic-info-section">
+                <h3>Basic Information</h3>
+                <form id="basic-info-form" method="POST" enctype="multipart/form-data">
+
+                    <!-- Username Field -->
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+
+                    <!-- Email Field -->
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <!-- Password Field -->
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <!-- Profile Picture Upload -->
+                    <label for="profile-picture" class="file-label">Profile Picture</label>
+                    <div class="file-input-container">
+                        <input type="file" id="profile-picture" name="profile_picture" class="form-control" onchange="updateFileName(event)">
+                        <span class="file-name">No file chosen</span>
+                    </div>
+
+                    <div class="navigation-buttons">
+                        <button type="button" id="next-button">Next</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Professional Details Form -->
+            <div class="form-section" id="professional-details-section" style="display: none;">
+                <h3>Professional Details</h3>
+                <form id="professional-details-form" method="POST">
+                    <label for="business-name">Business Name/Title</label>
+                    <input type="text" id="business-name" name="business-name" required>
+
+                    <label for="industry">Industry/Field of Work</label>
+                    <input type="text" id="industry" name="industry" required>
+
+                    <label for="linkedin">LinkedIn URL</label>
+                    <input type="url" id="linkedin" name="linkedin" required>
+
+                    <div class="navigation-buttons">
+                        <button type="submit" id="finish-button">Finish</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nextButton = document.getElementById('next-button');
+            const finishButton = document.getElementById('finish-button');
+            const basicInfoSection = document.getElementById('basic-info-section');
+            const professionalDetailsSection = document.getElementById('professional-details-section');
+            const basicInfoForm = document.getElementById('basic-info-form');
+            const professionalDetailsForm = document.getElementById('professional-details-form');
+
+            // Event listener for the "Next" button (moving to Professional Details)
+            nextButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (basicInfoForm.checkValidity()) {
+                    basicInfoSection.style.display = 'none';
+                    professionalDetailsSection.style.display = 'block';
+                } else {
+                    alert('Please fill in all required fields.');
+                }
+            });
+
+            // Event listener for the "Finish" button (submitting the form)
+            finishButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                if (professionalDetailsForm.checkValidity()) {
+                    alert('Your registration is complete!');
+                    // You can process the form data here or submit it to your server.
+                } else {
+                    alert('Please fill in all required fields in the Professional Details section.');
+                }
+            });
+
+            // Update file name on file input change
+            function updateFileName(event) {
+                const fileNameSpan = event.target.nextElementSibling;
+                fileNameSpan.textContent = event.target.files.length > 0 ? event.target.files[0].name : 'No file chosen';
+            }
+        });
+    </script>
+
+</body>
+</html>
